@@ -3,6 +3,7 @@ package com.younesleonjoe.beermicroservice.beer.v1;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,13 +23,13 @@ public class BeerController {
   }
 
   @PostMapping
-  public BeerDTO create(@RequestBody BeerDTO beerDTO) {
+  public BeerDTO create(@Validated @RequestBody BeerDTO beerDTO) {
     return beerService.create(beerDTO);
   }
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void update(@PathVariable UUID id, @RequestBody BeerDTO beerDTO) {
+  public void update(@PathVariable UUID id, @Validated @RequestBody BeerDTO beerDTO) {
     beerService.update(id, beerDTO);
   }
 
