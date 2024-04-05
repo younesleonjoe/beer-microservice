@@ -1,26 +1,30 @@
 package com.younesleonjoe.beermicroservice.beer.v1;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BeerDTO {
-	private UUID id;
-	private Integer version;
-	private OffsetDateTime createdAt;
-	private OffsetDateTime updatedAt;
-	private String beerName;
-	private BeerStyleEnum beerStyle;
-	private Long upc;
-	private BigDecimal price;
-	private Integer quantityOnHand;
+  @Null private UUID id;
+  @Null private Integer version;
+  @Null private OffsetDateTime createdAt;
+  @Null private OffsetDateTime updatedAt;
+  @NotBlank private String beerName;
+  @NotNull private BeerStyleEnum beerStyle;
+  @Positive @NotNull private Long upc;
+  @Positive @NotNull private BigDecimal price;
+  private Integer quantityOnHand;
 }
