@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,14 @@ class BeerControllerTest {
 
   @BeforeEach
   void setUp() throws JsonProcessingException {
-    beerDTO = BeerDTO.builder().id(UUID.randomUUID()).build();
+    beerDTO =
+        BeerDTO.builder()
+            .beerName("beer1")
+            .upc(1000L)
+            .price(BigDecimal.TEN)
+            .beerStyle(BeerStyleEnum.ALE)
+            .quantityOnHand(10)
+            .build();
     beerDTOJSON = objectMapper.writeValueAsString(beerDTO);
     beerPagedDTO = new BeerPagedDTO(Collections.singletonList(beerDTO));
 
@@ -73,7 +81,7 @@ class BeerControllerTest {
   void update() throws Exception {
     mockMvc
         .perform(
-            MockMvcRequestBuilders.put("/api/v1/beers/" + beerDTO.getId())
+            MockMvcRequestBuilders.put("/api/v1/beers/" + UUID.randomUUID())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDTOJSON))
         .andExpect(MockMvcResultMatchers.status().isNoContent());
@@ -83,7 +91,7 @@ class BeerControllerTest {
   void delete() throws Exception {
     mockMvc
         .perform(
-            MockMvcRequestBuilders.delete("/api/v1/beers/" + beerDTO.getId())
+            MockMvcRequestBuilders.delete("/api/v1/beers/" + UUID.randomUUID())
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isNoContent());
   }
