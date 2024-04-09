@@ -38,10 +38,11 @@ class BeerControllerTest {
     beerDTO =
         BeerDTO.builder()
             .beerName("beer1")
-            .upc(1000L)
+            .upc(BeerLoader.Beer_1_UPC)
             .price(BigDecimal.TEN)
             .beerStyle(BeerStyleEnum.ALE)
-            .quantityOnHand(10)
+            .quantityToBrew(50)
+            .minOnHand(12)
             .build();
     beerDTOJSON = objectMapper.writeValueAsString(beerDTO);
     beerPagedDTO = new BeerPagedDTO(Collections.singletonList(beerDTO));
@@ -74,7 +75,7 @@ class BeerControllerTest {
             MockMvcRequestBuilders.post("/api/v1/beers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDTOJSON))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        .andExpect(MockMvcResultMatchers.status().isCreated());
   }
 
   @Test
