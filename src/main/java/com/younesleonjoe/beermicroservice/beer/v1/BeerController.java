@@ -1,14 +1,15 @@
 package com.younesleonjoe.beermicroservice.beer.v1;
 
 import java.util.UUID;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/beers")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BeerController {
   private final BeerService beerService;
 
@@ -18,13 +19,14 @@ public class BeerController {
   }
 
   @GetMapping("/{id}")
-  public BeerDTO findById(@PathVariable UUID id) {
-    return beerService.findById(id);
+  public ResponseEntity<BeerDTO> findById(@PathVariable UUID id) {
+    return new ResponseEntity<>(beerService.findById(id), HttpStatus.OK);
   }
 
   @PostMapping
-  public BeerDTO create(@Validated @RequestBody BeerDTO beerDTO) {
-    return beerService.create(beerDTO);
+  public ResponseEntity<BeerDTO> create(@Validated @RequestBody BeerDTO beerDTO) {
+
+    return new ResponseEntity<>(beerService.create(beerDTO), HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
