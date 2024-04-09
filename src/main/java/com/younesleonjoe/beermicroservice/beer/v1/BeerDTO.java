@@ -21,22 +21,23 @@ public class BeerDTO {
   @Null private UUID id;
   @Null private Integer version;
 
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ'", shape = JsonFormat.Shape.STRING)
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING)
   @Null
   private OffsetDateTime createdAt;
 
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ'", shape = JsonFormat.Shape.STRING)
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING)
   @Null
   private OffsetDateTime updatedAt;
 
   @NotBlank private String beerName;
   @NotNull private BeerStyleEnum beerStyle;
-  @Positive @NotNull private Long upc;
+  @NotBlank private String upc;
 
   @JsonFormat(shape = JsonFormat.Shape.STRING)
   @Positive
   @NotNull
   private BigDecimal price;
 
-  private Integer quantityOnHand;
+  private Integer quantityToBrew;
+  private Integer minOnHand;
 }
